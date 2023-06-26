@@ -30,40 +30,80 @@ const listarUsuarios = async() => {
 
 listarUsuarios()
 
-const registrarUsuario = async() =>{
-    //Captura de valores de datos enviados desde el formulario
-    let nombre = document.getElementById('nombre').value
-    let apellidos = document.getElementById('apellidos').value
-    let correo = document.getElementById('correo').value
-    let telefono = document.getElementById('telefono').value
-    let rol = document.getElementById('rol').value
-    let estado = document.getElementById('estado').value
-    let contrasena = document.getElementById('contrasena').value
+const registrarUsuario = async () => {
+    const expNombres = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+    const expApellidos = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+    const expCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const expTelefono = /^\d{10}$/;
 
-    let usuario = {
-        nombre: nombre,
-        apellidos: apellidos,
-        correo: correo,
-        telefono: telefono,
-        rol: rol,
-        estado: estado,
-        contrasena: contrasena
-    }
+    const nombre = document.getElementById('nombre').value;
+    const apellidos = document.getElementById('apellidos').value;
+    const correo = document.getElementById('correo').value;
+    const telefono = document.getElementById('telefono').value;
 
-    
+    try {
+        if (nombre === '' || apellidos === '' || correo === '' || telefono === '') {
+            throw 'Todos los campos son obligatorios';
+        }
 
-    // if((password.length >0 && confirmarPassword.length>0) && (password == confirmarPassword)){
+        if (!expNombres.test(nombre)) {
+            throw 'Nombres incorrectos. ¡Solo se permiten letras!';
+        }
+
+        if (!expApellidos.test(apellidos)) {
+            throw 'Apellidos incorrectos. ¡Solo se permiten letras!';
+        }
+
+        if (!expCorreo.test(correo)) {
+            throw 'Correo incorrecto. ¡Ingrese un correo válido!';
+        }
+
+        if (!expTelefono.test(telefono)) {
+            throw 'Teléfono incorrecto. ¡Ingrese un número de teléfono válido!';
+        }
+
+        // Captura de valores de datos enviados desde el formulario
+        let rol = document.getElementById('rol').value;
+        let estado = document.getElementById('estado').value;
+        let contrasena = document.getElementById('contrasena').value;
+
+        let usuario = {
+            nombre: nombre,
+            apellidos: apellidos,
+            correo: correo,
+            telefono: telefono,
+            rol: rol,
+            estado: estado,
+            contrasena: contrasena
+        };
+
         fetch(url, {
             method: 'POST',
             mode: 'cors',
-            body:JSON.stringify(usuario),
-            headers: {"Content-type": "application/json; charset=UTF-8"}     
+            body: JSON.stringify(usuario),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
         })
-        .then(response => response.json()) //La respuesta del método POST de la API
-        .then(json => {
-           alert(json.mensaje)
-        })
+            .then(response => response.json()) // La respuesta del método POST de la API
+            .then(async json => {
+                await Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro exitoso!',
+                    text: json.mensaje,
+                });
+                window.location.href = 'listarUsuario.html';
+            });
+
+    } catch (e) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: e,
+        });
     }
+};
+
+
+
     // else{
     //     alert('El password y la confirmación del Password no coinciden. Por favor verifique')
     // }
@@ -92,6 +132,11 @@ const editar = (usuario) =>{
 }
 
 const actualizarUsuario = async() =>{
+    const expNombres = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+    const expApellidos = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+    const expCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const expTelefono = /^\d{10}$/;
+
     //Captura de valores de datos enviados desde el formulario
     let nombre = document.getElementById('nombre').value
     let apellidos = document.getElementById('apellidos').value
@@ -101,6 +146,26 @@ const actualizarUsuario = async() =>{
     let estado = document.getElementById('estado').value
     let contrasena = document.getElementById('contrasena').value
 
+    try {
+        if (nombre === '' || apellidos === '' || correo === '' || telefono === '') {
+            throw 'Todos los campos son obligatorios';
+        }
+
+        if (!expNombres.test(nombre)) {
+            throw 'Nombres incorrectos. ¡Solo se permiten letras!';
+        }
+
+        if (!expApellidos.test(apellidos)) {
+            throw 'Apellidos incorrectos. ¡Solo se permiten letras!';
+        }
+
+        if (!expCorreo.test(correo)) {
+            throw 'Correo incorrecto. ¡Ingrese un correo válido!';
+        }
+
+        if (!expTelefono.test(telefono)) {
+            throw 'Teléfono incorrecto. ¡Ingrese un número de teléfono válido!';
+        }
     let usuario = {
         _id: document.getElementById('_id').value,
         nombre: nombre,
@@ -117,14 +182,27 @@ const actualizarUsuario = async() =>{
         fetch(url, {
             method: 'PUT',
             mode: 'cors',
-            body:JSON.stringify(usuario),
-            headers: {"Content-type": "application/json; charset=UTF-8"}     
+            body: JSON.stringify(usuario),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
         })
-        .then(response => response.json()) //La respuesta del método POST de la API
-        .then(json => {
-           alert(json.mensaje)
-        })
+            .then(response => response.json()) // La respuesta del método POST de la API
+            .then(async json => {
+                await Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro exitoso!',
+                    text: json.mensaje,
+                });
+                window.location.href = 'listarUsuario.html';
+            });
+
+    } catch (e) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: e,
+        });
     }
+};
     // else{
     //     alert('El password y la confirmación del Password no coinciden. Por favor verifique')
     // }
