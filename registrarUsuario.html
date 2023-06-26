@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <title>Registrar Usuario</title>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+ 
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <form id="msform" class="col s12">
+            
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="_id" type="hidden" class="validate" >
+              <input id="nombre" type="text" class="validate" placeholder="Nombres">
+              <label for="nombre">Nombres</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock</i>
+              <input id="apellidos" type="text" class="validate" placeholder="Apellidos">
+              <label for="apellidos">Apellidos</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">lock</i>
+                <input id="correo" type="text" class="validate" placeholder="Correo">
+                <label for="correo">Correo</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock</i>
+              <input id="telefono" type="number" class="validate" placeholder="Telefono">
+              <label for="telefono">Telefono</label>
+          </div>
+          <div class="input-field col s12">
+            <select class="browser-default" id="rol">
+              <option value="" disabled selected>Elija el rol</option>
+              <option value="Admin">Administrador</option>
+              <option value="Usuario">Usuario</option>
+            </select>
+        </div>
+        <div class="input-field col s12">
+            <select class="browser-default" id="estado">
+              <option value="" disabled selected>Elija el estado</option>
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
+            </select>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">lock</i>
+          <input id="contrasena" type="number" class="validate" placeholder="Contraseña">
+          <label for="contrasena">Contraseña</label>
+      </div>
+        <div class="input-field col s12">
+            <button id="btnRegistrar" class="btn waves-effect waves-light" type="submit" name="action">Registrar
+                <i class="material-icons right">send</i>
+              </button>
+        </div>           
+        </form>
+      </div>
+</div>
+<script src="../ConsumirApi/js/ValidacionesRegistro.js"></script>
+<script src="../ConsumirApi/js/funciones.js"></script>
+
+</body>
+</html>

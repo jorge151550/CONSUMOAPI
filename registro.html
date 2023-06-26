@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/sesion.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Registro</title>
+</head>
+
+<body>
+  <form id="msform">
+    <div class="form-body">
+      <img src="img/logoLT.png" alt="user-login">
+      <p class="text">Bienvenidos Ingresa Tus Datos</p>
+      <input id="_id" type="hidden" class="validate" >
+      <input id="nombre" type="text" class="validate" placeholder="Nombres">
+      <input id="apellidos" type="text" class="validate" placeholder="Apellidos">
+      <input id="correo" type="text" class="validate" placeholder="Correo">
+      <input id="telefono" type="number" class="validate" placeholder="Telefono">
+      <div class="input-field col s12">
+        <select class="browser-default" id="rol">
+          <option value="" disabled selected>Elija el rol</option>
+          <option value="Admin">Administrador</option>
+          <option value="Usuario">Usuario</option>
+        </select>
+      </div>
+      <div class="input-field col s12">
+        <select class="browser-default" id="estado">
+          <option value="" disabled selected>Elija el estado</option>
+          <option value="true">Activo</option>
+          <option value="false">Inactivo</option>
+        </select>
+    </div>
+      <input id="contrasena" type="number" class="validate" placeholder="Contraseña"><br>
+      <div class="input-field col s12">
+        <button id="btnRegistrar" class="btn waves-effect waves-light" type="submit" name="action">Registrar
+            <i class="material-icons right">send</i>
+          </button>
+    </div>  
+
+  </form>
+  <form action="/">
+    <button type="submit">Regresar al inicio</button>
+  </form>
+
+  <script src="../ConsumirApi/js/ValidacionesRegistro.js"></script>
+  <script src="../ConsumirApi/js/funciones.js"></script>
+</body>
+
+</html>

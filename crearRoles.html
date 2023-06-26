@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{titulo}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../css/valid.css">
+<style>
+.options-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+label {
+  flex-basis: 0%;
+  padding: 5px;
+}
+</style>
+</head>
+
+<body>
+    <form id="msform">
+        <fieldset>
+            <h2 class="fs-title">
+                <a href="/roles">
+                    <img src="images/flecha.png" alt=""
+                        style="width: 28px; height: 28px; vertical-align: middle; margin-right: 10px;">
+                </a>
+                Roles
+            </h2>
+            <h3 class="fs-subtitle">Crear Roles</h3>
+            <h2 class="fs-title">{{modulo}}</h2>
+            <h3 class="fs-subtitle">{{descripcion_modulo}}</h3>
+            <input type="text" id="nombre" placeholder="Ingrese El nombre del Rol" />
+            <h2 class="options-form">Seleccione Los Permisos Asociados al Rol</h2>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Ventas
+            </label>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Eventos
+            </label>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Carrito
+            </label>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Cliente
+            </label>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Usuario
+            </label>
+            <label>
+                <input type="checkbox" name="permisos" value="permisos"> Roles
+            </label>
+                        <h2 class="options-form">Seleccione Las Funciones</h2>
+            <label>
+                <input type="checkbox" name="funciones" value="funciones"> Listar
+            </label>
+            <label>
+                <input type="checkbox" name="funciones" value="funciones"> Editar
+            </label>
+            <label>
+                <input type="checkbox" name="funciones" value="funciones"> Eliminar
+            </label>
+            <h2 class="fs-title">Seleccione Estado</h2>
+            <select>
+                <option value="administrador">Activo</option>
+                <option value="usuario">Inactivo</option>
+            </select>
+            <!-- <input type="text" name="cpass" placeholder="Estado " /> -->
+            <button id="btn" type="submit" name="next" class="next action-button">Crear Rol</button>
+        </fieldset>
+    </form>
+    <script src="../js/ValidacionesRol.js"></script>
+</body>
+
+</html>

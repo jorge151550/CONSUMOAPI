@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="css/sesion.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body>
+  <form id="msform">
+    <div class="form-body">
+      <img src="../ConsumirApi/img/logoLT.png" alt="user-login">
+      <p class="text">Bienvenidos Ingresa Tus Datos</p>
+      <input type="text" id="usuario" placeholder="Ingrese su Usuario">
+      <input type="password" id="contrasena"  placeholder="Ingrese su Contraseña">
+      <button id="btn" type="submit" name="next"  class="next action-button">Iniciar Sesión</button>
+  </form>
+  <form action="../ConsumirApi/registro.html">
+    <button type="submit">Crear cuenta</button>
+  </form>
+  <form action="/">
+    <button type="submit">Regresar al inicio</button>
+  </form>
+  <script src="../ConsumirApi/js/ValidacionesLogin.js"></script>
+</body>
+
+</html>
