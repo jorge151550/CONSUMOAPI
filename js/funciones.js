@@ -1,4 +1,4 @@
-const url = 'http://localhost:8088/api/usuario'
+const url = 'https://masterapi.onrender.com/api/usuario'
 const listarUsuarios = async() => {
     let body = document.getElementById('contenido')
     if(body){
