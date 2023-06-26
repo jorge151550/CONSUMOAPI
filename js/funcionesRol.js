@@ -1,4 +1,4 @@
-const url = 'http://localhost:8088/api/rol'
+const url = 'https://masterapi.onrender.com/api/rol'
 const listarRoles = async() => {
     let body = document.getElementById('contenido')
     if(body){
