@@ -57,7 +57,7 @@ formulario.addEventListener('submit', e => {
                 title: '¡Bien hecho! Te has registrado correctamente',
                 icon: 'success',
             }).then(() => {
-                window.location.href = '../ConsumirApi/listarUsuario.html';
+                window.location.href = 'listarUsuario.html';
             });
         }
     } catch (e) {
