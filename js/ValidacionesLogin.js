@@ -31,7 +31,7 @@ formulario.addEventListener('submit', e => {
                 title: 'Bien Hecho!',
                 icon: 'success',
             }).then(() => {
-                window.location.href = '/ConsumirApi/home.html';
+                window.location.href = 'home.html';
             });
         }
     } catch (e) {
