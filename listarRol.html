@@ -75,8 +75,8 @@
       <thead>
         <tr>
           <th>Nombre del Rol</th>
-          <th>Permisos</th>
           <th>Funciones</th>
+          <th>Permisos</th>
           <th>Fecha Creación</th>
           <th>Estado</th>
         </tr>
@@ -91,33 +91,72 @@
   <!-- Modal Structure -->
   <div id="modal" class="modal modal-small">
     <div class="modal-content">
-      <div class="container">
-        <div class="row">
-            <form id="msform" class="col s12">
-                
-              <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="_id" type="hidden" class="validate" >
-                <input id="nombrerol" type="text" class="validate" placeholder="Nombre del Rol">
-                <label for="nombrerol">Nombre del Rol</label>
-              </div>
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input id="permisos" type="text" class="validate" placeholder="Permisos">
-                <label for="permisos">Permisos</label>
-              </div>
-              <div class="input-field col s12">
-                  <i class="material-icons prefix">lock</i>
-                  <input id="funciones" type="text" class="validate" placeholder="Funciones">
-                  <label for="funciones">Funciones</label>
-              </div>
-            <div class="input-field col s12">
-              <select class="browser-default" id="estado">
-                <option value="" disabled selected>Elija el estado</option>
-                <option value="true">Activo</option>
-                <option value="false">Inactivo</option>
-              </select>
-            </div>
+        <div class="container">
+            <div class="row">
+                <form id="msform" class="col s12">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="_id" type="hidden" class="validate" >
+                    <input id="nombrerol" type="text" class="validate" placeholder="Nombre del Rol">
+                    <label for="nombrerol">Nombre del Rol</label>
+                  </div>
+                  <a>Funciones</a>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="funciones" class="filled-in" value="Listar" />
+                      <span>Listar</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="funciones" class="filled-in" value="Editar" />
+                      <span>Editar</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="funciones" class="filled-in" value="Actualizar" />
+                      <span>Actualizar</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="funciones" class="filled-in" value="Eliminar" />
+                      <span>Eliminar</span>
+                    </label>
+                  </p>
+                  <a>Permisos</a>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="permisos" class="filled-in" value="Roles" />
+                      <span>Roles</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="permisos" class="filled-in" value="Usuarios" />
+                      <span>Usuarios</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="permisos" class="filled-in" value="Ventas" />
+                      <span>Ventas</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" id="permisos" class="filled-in" value="Servicios" />
+                      <span>Servicios</span>
+                    </label>
+                  </p>
+                <div class="input-field col s12">
+                  <select class="browser-default" id="estado">
+                    <option value="" disabled selected>Elija el estado</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                  </select>
+                </div>
                     <div class="input-field col s12">
                         <button id="btnActualizar" class="btn waves-effect waves-light" type="button" name="action">Actualizar
                             <i class="material-icons right">send</i>
