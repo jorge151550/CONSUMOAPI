@@ -184,24 +184,45 @@ const url = 'https://masterapi.onrender.com/api/rol'
       };
       
       
-    const eliminar = (_id) => {
-      if (confirm('¿Está seguro de realizar la eliminación?')) {
-        let rol = {
-          _id: _id
-        }
+const eliminar = (_id) => {
+  Swal.fire({
+    title: '¿Está seguro de realizar la eliminación?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let rol = {
+        _id: _id
+      };
 
-        fetch(url, {
-            method: 'DELETE',
-            mode: 'cors',
-            body: JSON.stringify(rol),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-          })
-          .then(response => response.json())
-          .then(json => {
-            alert(json.mensaje);
+      fetch(url, {
+          method: 'DELETE',
+          mode: 'cors',
+          body: JSON.stringify(rol),
+          headers: { "Content-type": "application/json; charset=UTF-8" }
+        })
+        .then(response => response.json())
+        .then(json => {
+          Swal.fire({
+            title: 'Eliminación exitosa',
+            text: json.mensaje,
+            icon: 'success'
           });
-      }
+        })
+        .catch(error => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Ocurrió un error al eliminar el rol',
+            icon: 'error'
+          });
+        });
     }
+  });
+};
 
     listarRoles();
 
