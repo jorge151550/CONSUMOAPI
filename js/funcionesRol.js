@@ -1,152 +1,220 @@
 const url = 'https://masterapi.onrender.com/api/rol'
-const listarRoles = async() => {
-    let body = document.getElementById('contenido')
-    if(body){
-        let mensaje = ''
-        
 
-        fetch(url)//Permite llamar la API
-        .then(res => res.json())
-        .then(function (data) {
-            let listarRoles = data.roles
+    const listarRoles = async () => {
+      let body = document.getElementById('contenido');
+      if (body) {
+        let mensaje = '';
+
+        fetch(url)
+          .then(res => res.json())
+          .then(function (data) {
+            let listarRoles = data.roles;
             listarRoles.map((rol) => {
-                mensaje += `<tr><td>${rol.nombrerol}</td>`+
-                `<td>${rol.permisos}</td>`+
-                `<td>${rol.funciones}</td>`+
-                `<td>${rol.fechacreacion}</td>`+
-                `<td>${rol.estado? 'Activo':'Inactivo' }</td>`+
-                `<td><a class="waves-effect waves-light btn modal-trigger" href="#modal" onclick='editar(${JSON.stringify(rol)})'>Editar</a>
-                 <a class="waves-effect waves-light btn modal-trigger red" href="#" onclick='eliminar("${rol._id}")'>Eliminar</a>
-                </td></tr>`
-                body.innerHTML = mensaje
-            }   
-            )
-        })
+              mensaje += `<tr><td>${rol.nombrerol}</td>` +
+                `<td>${rol.funciones}</td>` +
+                `<td>${rol.permisos}</td>` +
+                `<td>${rol.fechacreacion}</td>` +
+                `<td>${rol.estado ? 'Activo' : 'Inactivo' }</td>` +
+                `<td><a class="waves-effect waves-light btn modal-trigger" href="#modal" onclick='editar(${JSON.stringify(rol)})'>Editar</a>` +
+                `<a class="waves-effect waves-light btn modal-trigger red" href="#" onclick='eliminar("${rol._id}")'>Eliminar</a>` +
+                `</td></tr>`;
+              body.innerHTML = mensaje;
+            });
+          });
+      }
     }
-}
-
-listarRoles()
-
-const registrarRol = async() =>{
-
-    document.querySelector('#msform').addEventListener('submit', e=>e.preventDefault())
-
-    //Captura de valores de datos enviados desde el formulario
-    let nombrerol = document.getElementById('nombrerol').value
-    let permisos = document.getElementById('permisos').value
-    let funciones = document.getElementById('funciones').value
-    let estado = document.getElementById('estado').value
-
-
-    let rol = {
-        nombrerol: nombrerol,
-        permisos: permisos,
-        funciones: funciones,
-        estado: estado,
-    }
-
-    
-
-    // if((password.length >0 && confirmarPassword.length>0) && (password == confirmarPassword)){
-        fetch(url, {
+    const registrarRol = async () => {
+        const expNombreRol = /^[a-zA-Z\s]+$/;
+        const nombreRol = document.getElementById('nombrerol').value;
+        const permisosCheckboxes = document.querySelectorAll('input[id="permisos"]:checked');
+        const funcionesCheckboxes = document.querySelectorAll('input[id="funciones"]:checked');
+      
+        try {
+          if (nombreRol === '') {
+            throw 'Todos los campos son obligatorios';
+          }
+      
+          if (!expNombreRol.test(nombreRol)) {
+            throw 'Nombres incorrectos. ¡Solo se permiten letras!';
+          }
+      
+          if (permisosCheckboxes.length === 0 || funcionesCheckboxes.length === 0) {
+            throw 'Debe seleccionar al menos un permiso y una función';
+          }
+      
+          let nombrerol = document.getElementById('nombrerol').value;
+          let estado = document.getElementById('estado').value;
+      
+          let funciones = [];
+          let checkboxes = document.querySelectorAll('input[id="funciones"]:checked');
+          checkboxes.forEach(checkbox => {
+            funciones.push(checkbox.value);
+          });
+      
+          let permisos = [];
+          let checkboxespermisos = document.querySelectorAll('input[id="permisos"]:checked');
+          checkboxespermisos.forEach(checkbox => {
+            permisos.push(checkbox.value);
+          });
+      
+          let rol = {
+            nombrerol: nombrerol,
+            funciones: funciones,
+            permisos: permisos,
+            estado: estado,
+          };
+      
+          fetch(url, {
             method: 'POST',
-
             mode: 'cors',
-            body:JSON.stringify(rol),
-            headers: {"Content-type": "application/json; charset=UTF-8"}     
-        })
-        .then(response => response.json()) //La respuesta del método POST de la API
-        .then(json => {
-            console.log(json)
-           alert(json.mensaje)
-        })
-    }
-    // else{
-    //     alert('El password y la confirmación del Password no coinciden. Por favor verifique')
-    // }
+            body: JSON.stringify(rol),
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+          })
+          .then(response => response.json())
+          .then(async json => {
+            await Swal.fire({
+              icon: 'success',
+              title: '¡Registro exitoso!',
+              text: json.mensaje,
+            });
+            window.location.href = 'listarRol.html';
+          });
+      
+        } catch (e) {
+          await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: e,
+          });
+        }
+      };
+      
 
 
-const editar = (rol) =>{
-    document.getElementById('_id').value = ''
-    document.getElementById('nombrerol').value = ''
-    document.getElementById('permisos').value = ''
-    document.getElementById('funciones').value = ''
-    document.getElementById('estado').value = ''
+    const editar = (rol) => {
+      document.getElementById('_id').value = rol._id;
+      document.getElementById('nombrerol').value = rol.nombrerol;
+      document.getElementById('estado').value = rol.estado;
 
-    document.getElementById('_id').value = rol._id
-    document.getElementById('nombrerol').value = rol.nombrerol
-    document.getElementById('permisos').value = rol.permisos
-    document.getElementById('funciones').value = rol.funciones
-    document.getElementById('estado').value = rol.estado
+      var funcionesSeleccionadas = rol.funciones;
+      var checkboxes = document.querySelectorAll('input[id="funciones"]:checked');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = funcionesSeleccionadas.includes(checkbox.value);
+      });
 
-}
-
-const actualizarRol = async() =>{
-    //Captura de valores de datos enviados desde el formulario
-    let nombrerol = document.getElementById('nombrerol').value
-    let permisos = document.getElementById('permisos').value
-    let funciones = document.getElementById('funciones').value
-    let estado = document.getElementById('estado').value
-
-    let rol = {
-        _id: document.getElementById('_id').value,
-        nombrerol: nombrerol,
-        permisos: permisos,
-        funciones: funciones,
-        estado: estado,
-        tipoModificacion: 'Unitaria'
+      var permisosSeleccionadas = rol.permisos;
+      var checkboxesroles = document.querySelectorAll('input[id="permisos"]:checked');
+      checkboxesroles.forEach(function(checkbox) {
+        checkbox.checked = permisosSeleccionadas.includes(checkbox.value);
+      });
     }
 
-    // if((password.length >0 && confirmarPassword.length>0) && (password == confirmarPassword)){
-        fetch(url, {
+    const actualizarRol = async () => {
+        const expNombreRol = /^[a-zA-Z\s]+$/;
+        const nombreRol = document.getElementById('nombrerol').value;
+        const permisosCheckboxes = document.querySelectorAll('input[id="permisos"]:checked');
+        const funcionesCheckboxes = document.querySelectorAll('input[id="funciones"]:checked');
+      
+        try {
+          if (nombreRol === '') {
+            throw 'Todos los campos son obligatorios';
+          }
+      
+          if (!expNombreRol.test(nombreRol)) {
+            throw 'Nombres incorrectos. ¡Solo se permiten letras!';
+          }
+      
+          if (permisosCheckboxes.length === 0 || funcionesCheckboxes.length === 0) {
+            throw 'Debe seleccionar al menos un permiso y una función';
+          }
+      
+          let _id = document.getElementById('_id').value;
+          let nombrerol = document.getElementById('nombrerol').value;
+          let estado = document.getElementById('estado').value;
+      
+          let funciones = [];
+          var checkboxesFunciones = document.querySelectorAll('input[id="funciones"]:checked');
+          checkboxesFunciones.forEach(function(checkbox) {
+            funciones.push(checkbox.value);
+          });
+      
+          let permisos = [];
+          var checkboxesPermisos = document.querySelectorAll('input[id="permisos"]:checked');
+          checkboxesPermisos.forEach(function(checkbox) {
+            permisos.push(checkbox.value);
+          });
+      
+          let rol = {
+            _id: _id,
+            nombrerol: nombrerol,
+            funciones: funciones,
+            permisos: permisos,
+            estado: estado,
+            tipoModificacion: 'Unitaria'
+          };
+      
+          fetch(url, {
             method: 'PUT',
             mode: 'cors',
-            body:JSON.stringify(rol),
-            headers: {"Content-type": "application/json; charset=UTF-8"}     
-        })
-        .then(response => response.json()) //La respuesta del método POST de la API
-        .then(json => {
-           alert(json.mensaje)
-        })
-    }
-    // else{
-    //     alert('El password y la confirmación del Password no coinciden. Por favor verifique')
-    // }
+            body: JSON.stringify(rol),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+          })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json);
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              text: json.mensaje
+            });
+          })
+          .catch(error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error
+            });
+          });
+        } catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error
+          });
+        }
+      };
+      
+      
+    const eliminar = (_id) => {
+      if (confirm('¿Está seguro de realizar la eliminación?')) {
+        let rol = {
+          _id: _id
+        }
 
-
-const eliminar =(_id) => {
-    if(confirm('¿Está seguro de realizar la eliminación?') == true){
-            //Captura de valores de datos enviados desde el formulario
-    let rol = {
-        _id: _id
-    }
-    
-    //console.log(colegio)
-
-       fetch(url, {
+        fetch(url, {
             method: 'DELETE',
             mode: 'cors',
-            body:JSON.stringify(rol),
-            headers: {"Content-type": "application/json; charset=UTF-8"}     
-        })
-        .then(response => response.json()) //La respuesta del método POST de la API
-        .then(json => {
-           alert(json.mensaje)
-        })     
+            body: JSON.stringify(rol),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+          })
+          .then(response => response.json())
+          .then(json => {
+            alert(json.mensaje);
+          });
+      }
     }
-}
 
-if(document.querySelector('#btnRegistrarrol'))
-{
-    document.querySelector('#btnRegistrarrol')
-    .addEventListener('click', registrarRol)
-}
+    listarRoles();
 
-if(document.querySelector('#btnActualizar'))
-{
-    document.querySelector('#btnActualizar')
-.addEventListener('click', actualizarRol)
-}
+    if (document.querySelector('#btnRegistrar')) {
+      document.querySelector('#btnRegistrar')
+        .addEventListener('click', registrarRol);
+    }
+
+    if (document.querySelector('#btnActualizar')) {
+      document.querySelector('#btnActualizar')
+        .addEventListener('click', actualizarRol);
+    }
 
 
 
