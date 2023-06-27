@@ -74,7 +74,7 @@ const url = 'https://masterapi.onrender.com/api/rol'
           .then(async json => {
             await Swal.fire({
               icon: 'success',
-              title: '¡Registro exitoso!',
+              title: '¡Registro de Rol exitoso!',
               text: json.mensaje,
             });
             window.location.href = 'listarRol.html';
@@ -164,8 +164,7 @@ const url = 'https://masterapi.onrender.com/api/rol'
             console.log(json);
             Swal.fire({
               icon: 'success',
-              title: '¡Éxito!',
-              text: json.mensaje
+              title: '¡Rol Creado con Éxito!',
             });
           })
           .catch(error => {
